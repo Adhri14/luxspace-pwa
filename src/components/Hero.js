@@ -1,6 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
+
+function Modal({ onClick }) {
+  return (
+    <div className="fixed inset-0 z-40 flex items-center justify-center min-h-screen">
+      <div onClick={onClick} className="fixed inset-0 bg-black opacity-35"></div>
+      <div className="w-[60%] h-[60%] p-0 md:p-6 z-10">
+        <div className="w-full h-full relative z-50">
+          <iframe
+            title="Video"
+            width="100%"
+            height="100%"
+            src="https://www.youtube.com/embed/3h0_v1cdUIA"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="w-full h-full"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function Hero() {
+  const [showModal, setShowModal] = useState(false);
   return (
     <section className="flex items-center hero">
       <div className="w-full absolute z-20 inset-0 md:relative md:w-1/2 text-center flex flex-col justify-center hero-caption">
@@ -28,18 +51,7 @@ function Hero() {
           <div className="overlay right-0 bottom-0 md:inset-0">
             <button
               className="video hero-cta focus:outline-none z-30 modal-trigger"
-              data-content='<div className="w-screen pb-56 md:w-88 md:pb-56 relative z-50">
-              <div className="absolute w-full h-full">
-                <iframe
-                  width="100%"
-                  height="100%"
-                  src="https://www.youtube.com/embed/3h0_v1cdUIA"
-                  frameborder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen
-                ></iframe>
-              </div>
-            </div>'
+              onClick={() => setShowModal(true)}
             ></button>
           </div>
           <img
@@ -49,6 +61,7 @@ function Hero() {
           />
         </div>
       </div>
+      {showModal && <Modal onClick={() => setShowModal(false)} />}
     </section>
   );
 }
